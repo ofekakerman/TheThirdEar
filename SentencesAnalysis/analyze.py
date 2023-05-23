@@ -1,6 +1,5 @@
 import openai
 
-
 def analyse(promt):
     completion = openai.ChatCompletion.create(
       model='gpt-4',

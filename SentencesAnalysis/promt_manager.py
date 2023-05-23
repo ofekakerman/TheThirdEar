@@ -1,6 +1,10 @@
-def create_conversation_object(conversation):
-    conversation = {'role': 'user', 'content': conversation}
-    return conversation
+from emotion_analysis import EmotionAnalysis
+
+def create_conversation_object(conversation, emotion):
+    conversation = conversation + f" הרגש הבולט בשיחה היה {emotion} "
+    conversation_object = {'role': 'user', 'content': conversation}
+
+    return conversation_object
 
 
 def create_context_object(context):
