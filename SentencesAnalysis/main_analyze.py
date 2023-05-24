@@ -21,6 +21,7 @@ def run_analyse(conversation,
     train_objects = [violence_train_object, warning_train_object, general_train_object]
 
     prompt = get_promt(system_promt_object, train_objects, conversation_object)
+    print ('analyse..')
     ans = analyse(prompt)
     print(ans)
     return ans
