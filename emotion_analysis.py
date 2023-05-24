@@ -19,7 +19,7 @@ class EmotionAnalysis:
         emotion = response.json()[0]['label']
         return emotion
 
-    def parse_emotions(self, raw_emotion: str) -> str:
+    def parse_emotion(self, raw_emotion: str) -> str:
         emotions_dict = {'neu': 'נטרלי',
                          'hap': 'שמח',
                          'sad': 'עצוב',

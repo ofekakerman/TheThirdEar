@@ -4,6 +4,7 @@ import time
 from pyannote.core import Segment
 from pydub import AudioSegment, audio_segment
 
+from emotion_analysis import EmotionAnalysis
 from speech_segmentation import SpeechSegmentationManager
 from stt import Whisper
 
@@ -12,6 +13,7 @@ class ConversationSTT:
     def __init__(self, openai_key: str, hf_key: str):
         self.whisper = Whisper(openai_key)
         self.speech_segmentation_manager = SpeechSegmentationManager(hf_key)
+        self.emotion_analysis = EmotionAnalysis(hf_key)
 
     def audio_conversation_to_text(self, file_dir: str, file_name: str, file_format: str = 'wav',
                                    start_prompt: str = '', max_tries=10, min_segment=1) -> str:
@@ -39,10 +41,16 @@ class ConversationSTT:
                         print(f'Received {e}')
                         print('failed to excess whisper, sleeping for 15 seconds')
                         time.sleep(15)
+                try:
+                    emotion = self.emotion_analysis.get_emotion(segment_path)
+                except Exception as e:
+                    print(e)
+                    emotion = 'לא ניתן לקבוע רגש'
                 text_conversation += transcribe
                 full_conversation += f'{turn} {speaker} \n {transcribe}'
                 print(turn, speaker)
                 print(transcribe)
+                print(emotion)
         return full_conversation
 
     def extract_segmant(self, conversation: audio_segment, file_dir: str, file_format: str, file_name: str,
