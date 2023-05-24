@@ -20,8 +20,8 @@ def run_analyse(conversation,
     conversation_object = create_conversation_object(conversation, 'כעס')
     train_objects = [violence_train_object, warning_train_object, general_train_object]
 
-    promt = get_promt(system_promt_object, train_objects, conversation_object)
-    ans = analyse(promt)
+    prompt = get_promt(system_promt_object, train_objects, conversation_object)
+    ans = analyse(prompt)
     print(ans)
     return ans
 
